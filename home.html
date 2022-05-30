@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width= , initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #navbar{
+        width: 90%;
+        height: 60px;
+        position: sticky;
+        border:  2px red solid;
+        margin: auto;
+        display: flex;
+        justify-content: space-between;
+        padding: 1%;
+    }
+    #logo{
+        border: 2px red solid;
+        height: 100%;
+        width: 20%;
+    }
+    #space{
+        width: 20%;
+        height: 100%;
+        border: 2px red solid;
+    }
+    #searchArea{
+        width: 100%;
+        height: 50%;
+        border: 2px red solid;
+        margin-top: 1%;
+        display: flex;
+        
+    }
+    #searchBox{
+        width: 30%;
+        /* height: 50%; */
+        border: 2px red solid;
+        margin-top: 1%;
+        /* display: flex; */
+        
+    }
+    #search{
+        width: 70%;
+        border:  2px red solid;
+        height: 100%;
+        /* margin-top: 12%; */
+    }
+    #searchButton{
+        border:  2px red solid;
+        text-align: center;
+        /* margin-top: 13%; */
+        height: 100%;
+        margin-top: 1%;
+    }
+    #profile{
+        width: 60px;
+        height: 60px;
+        border: 2px red solid;
+    }
+    #img{
+        width: 100%;
+        height: 100%;
+        margin: auto;
+        border: 2px red solid;
+        border-radius: 60px;
+    }
+    #movieNames{
+        width: 72%;
+        border: 2px red solid;
+        height: 100px;
+        background-color: white;
+    }
+    p{
+        border: 2px red solid;
+    }
+</style>
+<body>
+    <div id="navbar">
+        <!-- <div id="logo"></div> -->
+        <!-- <div id="space"></div> -->
+        <!-- <div id="searchBox"> -->
+            <!-- <div id="searchArea">
+                <input type="text" name="" id="search">
+                <button id="searchButton" onclick="searchMovies()">Search</button>
+            </div> -->
+            <div id="movieNames">
+                <p>re</p>
+                <p>res</p>
+                <p>resp</p>
+
+            <!-- </div> -->
+        </div>
+        <!-- <div id="profile"> <img src="" alt="" id="img"></div> -->
+    </div>
+</body>
+</html>
+<script>
+    const url = "https://api.themoviedb.org/3/search/movie?api_key=";
+    const apiKey = "e1f1e0bdab09eb10684aa8ed3ade9fd6";
+    const addQuery = "&query="
+    const SearchValue = " " || "avanger";
+
+
+    function searchMovies()
+    {
+
+    }
+
+
+
+    let names = document.getElementById('movieNames')
+
+    names.setAttribute('onclick','deletes()')
+
+
+    function deletes()
+    {
+        event.preventDefault()
+        let test = event.target.innerText
+
+        console.log(test)
+    }
+</script>
