@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width= , initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
 <style>
@@ -71,57 +71,123 @@
     #movieNames{
         width: 72%;
         border: 2px red solid;
-        height: 100px;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        max-height: 200px;
         background-color: white;
     }
     p{
         border: 2px red solid;
+        cursor: pointer;
     }
 </style>
 <body>
     <div id="navbar">
-        <!-- <div id="logo"></div> -->
-        <!-- <div id="space"></div> -->
-        <!-- <div id="searchBox"> -->
-            <!-- <div id="searchArea">
-                <input type="text" name="" id="search">
-                <button id="searchButton" onclick="searchMovies()">Search</button>
-            </div> -->
-            <div id="movieNames">
-                <p>re</p>
-                <p>res</p>
-                <p>resp</p>
-
-            <!-- </div> -->
+        <div id="logo"></div>
+        <div id="space"></div>
+        <div id="searchBox">
+            <div id="searchArea">
+                <input type="text" name="" id="search" oninput="searchAlgo(main,1000)">
+                <button id="searchButton">Search</button>
+            </div>
         </div>
-        <!-- <div id="profile"> <img src="" alt="" id="img"></div> -->
+        <div id="profile"> <img src="" alt="" id="img"></div>
     </div>
 </body>
 </html>
 <script>
-    const url = "https://api.themoviedb.org/3/search/movie?api_key=";
-    const apiKey = "e1f1e0bdab09eb10684aa8ed3ade9fd6";
-    const addQuery = "&query="
-    const SearchValue = " " || "avanger";
+    // setting attrib>>>>>>>>>>>
+    let check;          // we will use for clearTimeOut
+    let dataStore;
+    // sending for display>>>>>>>>>
 
-
-    function searchMovies()
+    function setPreview()
     {
+        let test = event.target.getAttribute('name');
+        console.log(dataStore[test]);
+
+        
+    }
+
+    // pushing to dropdown>>>>>>>>>
+    function drops(movieList)
+    {
+        
+        // getting area for movie name display>>>>>>>>>>
+        let searchArea = document.getElementById('searchBox');
+        // searchArea.innerHTML = '';
+
+        // setting movie box>>>>>>>>>>>>>>>>>>
+        let movieNamesList = document.createElement('div');
+        movieNamesList.setAttribute('id', 'movieNames')
+        // movieNamesList.innerHTML = '';
+        
+        // get movie name list
+        movieList.map(function(el,index){
+            // console.log(el.title,index);
+            let title = document.createElement('p');
+            title.setAttribute('name', index);
+            title.setAttribute('onclick','setPreview()')
+            title.textContent = el.title;
+            movieNamesList.append(title);
+        })
+
+        // appending name data for display>>>>>>>>>>>...
+        searchArea.append(movieNamesList)
+    }
+    // calling function>>>>>>>>>>>>>>>>>
+    async function searchMovies()
+    {
+
+        // setting url >>>>>>>>>>>
+        const url = "https://api.themoviedb.org/3/search/movie?api_key=";
+        const apiKey = "e1f1e0bdab09eb10684aa8ed3ade9fd6";
+        const addQuery = "&query="
+        const searchValue = document.getElementById('search').value;
+        const fullUrl = (`${url}${apiKey}${addQuery}${searchValue}`)
+
+
+
+        let response = await fetch(fullUrl)
+        let data = await response.json();
+        console.log(data.results)
+        dataStore = data.results;
+         return data.results;
+    }
+    // setting time out for fast search>>>>>>>>>>>
+    function searchAlgo(func,delay)
+    {
+        if(check)
+        {
+            clearTimeout(check)
+        }
+
+        check = setTimeout(function(){
+           func();
+        },delay)
+    }
+    // searchAlgo();
+
+    async function main()
+    {
+        let getData =  await searchMovies()
+            drops(getData);
+            // console.log(getData)
 
     }
 
 
 
-    let names = document.getElementById('movieNames')
+    // let names = document.getElementById('movieNames')
 
-    names.setAttribute('onclick','deletes()')
+    // names.setAttribute('onclick','deletes()')
 
 
-    function deletes()
-    {
-        event.preventDefault()
-        let test = event.target.innerText
+    // function deletes()
+    // {
+    //     event.preventDefault()
+    //     let test = event.target.innerText
 
-        console.log(test)
-    }
+    //     console.log(test)
+    // }
 </script>
